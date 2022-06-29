@@ -20,6 +20,10 @@ export const PageAdd = () => {
       .catch((err) => console.log(err));
   };
 
+  const handleClean = () => {
+    setResult({ price: 0 });
+  };
+
   useEffect(() => {
     if (zapLink) {
       setDisabled(false);
@@ -29,7 +33,14 @@ export const PageAdd = () => {
   }, [zapLink]);
 
   return (
-    <VStack w="full" bg="purple.900" color="white" minH="100vh" p="8">
+    <VStack
+      w="full"
+      bg="purple.900"
+      color="white"
+      minH="100vh"
+      p="8"
+      spacing="16"
+    >
       <VStack w="full" maxW="container.sm">
         <Input
           w="full"
@@ -47,9 +58,16 @@ export const PageAdd = () => {
         </Button>
       </VStack>
 
-      <VStack>
-        <Text>{result.price}</Text>
-      </VStack>
+      {result.price && (
+        <VStack w="full" align="flex-start" spacing="0">
+          <Text fontSize="xs">Preço do Imóvel</Text>
+          <Text>R$ {result.price}</Text>
+        </VStack>
+      )}
+
+      <Button w="full" colorScheme="green" onClick={handleClean}>
+        Limpar
+      </Button>
     </VStack>
   );
 };
