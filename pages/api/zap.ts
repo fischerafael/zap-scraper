@@ -15,18 +15,18 @@ export default async function handler(
     const json = await response.json();
     res.status(200).json({ html: json });
 
-    try {
-      if (!url) throw new Error("URL not provided");
-      const response = await fetch(url as string);
-      const htmlString = await response.text();
-      const $ = load(htmlString);
-      const price = $(
-        "div.info__base > div > div:nth-child(1) > ul > li > strong"
-      ).text();
+    // try {
+    //   if (!url) throw new Error("URL not provided");
+    //   const response = await fetch(url as string);
+    //   const htmlString = await response.text();
+    //   const $ = load(htmlString);
+    //   const price = $(
+    //     "div.info__base > div > div:nth-child(1) > ul > li > strong"
+    //   ).text();
 
-      res.status(200).json({ html: price, query });
-    } catch (e: any) {
-      res.status(500).json({ error: e.message });
-    }
+    //   res.status(200).json({ html: price, query });
+    // } catch (e: any) {
+    //   res.status(500).json({ error: e.message });
+    // }
   }
 }
