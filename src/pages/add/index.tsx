@@ -1,6 +1,10 @@
 import { Button, Input, Text, VStack } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Client } from "@notionhq/client";
+
+const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION });
+const databaseId = process.env.NEXT_PUBLIC_DATABASE_ID;
 
 export const PageAdd = () => {
   const [zapLink, setZapLink] = useState("");
@@ -18,6 +22,21 @@ export const PageAdd = () => {
         setZapLink("");
       })
       .catch((err) => console.log(err));
+
+    await notion.pages.create({
+      parent: { database_id: databaseId as string },
+      properties: {
+        title: {
+          title: [
+            {
+              text: {
+                content: String(result.price),
+              },
+            },
+          ],
+        },
+      },
+    });
   };
 
   const handleClean = () => {
