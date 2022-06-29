@@ -59,13 +59,18 @@ export const PageAdd = () => {
       </VStack>
 
       {result.price && (
-        <VStack w="full" align="flex-start" spacing="0">
+        <VStack maxW="container.sm" w="full" align="flex-start" spacing="0">
           <Text fontSize="xs">Preço do Imóvel</Text>
           <Text>R$ {result.price}</Text>
         </VStack>
       )}
 
-      <Button w="full" colorScheme="green" onClick={handleClean}>
+      <Button
+        maxW="container.sm"
+        w="full"
+        colorScheme="green"
+        onClick={handleClean}
+      >
         Limpar
       </Button>
     </VStack>
