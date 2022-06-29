@@ -1,5 +1,7 @@
+import { PageAdd } from "../src/pages/add";
+
 const index = () => {
-  return <div>zap scraper</div>;
+  return <PageAdd />;
 };
 
 export default index;
