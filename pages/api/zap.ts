@@ -11,10 +11,6 @@ export default async function handler(
   if (method === "GET") {
     const { url } = query;
 
-    // const response = await fetch("https://pokeapi.co/api/v2/pokemon/ditto");
-    // const json = await response.json();
-    // res.status(200).json({ html: json });
-
     try {
       if (!url) throw new Error("URL not provided");
       const response = await fetch(url as string);
@@ -22,7 +18,13 @@ export default async function handler(
       const $ = load(htmlString);
       const price = $(
         "div.info__base > div > div:nth-child(1) > ul > li > strong"
-      ).text();
+      )
+        .text()
+        .split(" ")
+        .filter((char) => char !== "")
+        .join()
+        .replace(/(\r\n|\n|\r)/gm, "")
+        .replace(/\D/g, "");
 
       res.status(200).json({ html: price, query });
     } catch (e: any) {
