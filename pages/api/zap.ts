@@ -10,6 +10,11 @@ export default async function handler(
 
   if (method === "GET") {
     const { url } = query;
+
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon/ditto");
+    const json = await response.json();
+    res.status(200).json({ html: json });
+
     try {
       if (!url) throw new Error("URL not provided");
       const response = await fetch(url as string);
@@ -24,6 +29,4 @@ export default async function handler(
       res.status(500).json({ error: e.message });
     }
   }
-
-  res.status(500).json({ error: "Method Not Allowed" });
 }
