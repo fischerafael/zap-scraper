@@ -26,7 +26,7 @@ export default async function handler(
         .replace(/(\r\n|\n|\r)/gm, "")
         .replace(/\D/g, "");
 
-      res.status(200).json({ html: price, query });
+      res.status(200).json({ price, query });
     } catch (e: any) {
       res.status(500).json({ error: e.message });
     }
