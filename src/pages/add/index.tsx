@@ -6,7 +6,7 @@ export const PageAdd = () => {
   const [zapLink, setZapLink] = useState("");
   const [isDisabled, setDisabled] = useState(true);
 
-  const [result, setResult] = useState({ price: 0 });
+  const [result, setResult] = useState({ price: 0, name: "" });
 
   console.log(zapLink);
 
@@ -14,14 +14,14 @@ export const PageAdd = () => {
     await axios
       .get(`/api/zap?url=${zapLink}`)
       .then((res) => {
-        setResult({ ...result, price: res.data.price });
+        setResult({ ...result, price: res.data.price, name: res.data.name });
         setZapLink("");
       })
       .catch((err) => console.log(err));
   };
 
   const handleClean = () => {
-    setResult({ price: 0 });
+    setResult({ price: 0, name: "" });
   };
 
   useEffect(() => {
@@ -42,37 +42,40 @@ export const PageAdd = () => {
       spacing="16"
     >
       <VStack w="full" maxW="container.sm">
-        <Input
-          w="full"
-          placeholder="Link do imóvel"
-          value={zapLink}
-          onChange={(e) => setZapLink(e.target.value)}
-        />
-        <Button
-          isDisabled={isDisabled}
-          w="full"
-          colorScheme="green"
-          onClick={handleScrape}
-        >
-          Salvar
+        <VStack w="full">
+          <Input
+            w="full"
+            placeholder="Link do imóvel"
+            value={zapLink}
+            onChange={(e) => setZapLink(e.target.value)}
+          />
+          <Button
+            isDisabled={isDisabled}
+            w="full"
+            colorScheme="green"
+            onClick={handleScrape}
+          >
+            Salvar
+          </Button>
+        </VStack>
+
+        {result.price && (
+          <VStack w="full">
+            <VStack w="full" align="flex-start" spacing="0">
+              <Text fontSize="xs">Nome do Imóvel</Text>
+              <Text>{result.name}</Text>
+            </VStack>
+            <VStack w="full" align="flex-start" spacing="0">
+              <Text fontSize="xs">Preço do Imóvel</Text>
+              <Text>R$ {result.price}</Text>
+            </VStack>
+          </VStack>
+        )}
+
+        <Button w="full" colorScheme="green" onClick={handleClean}>
+          Limpar
         </Button>
       </VStack>
-
-      {result.price && (
-        <VStack maxW="container.sm" w="full" align="flex-start" spacing="0">
-          <Text fontSize="xs">Preço do Imóvel</Text>
-          <Text>R$ {result.price}</Text>
-        </VStack>
-      )}
-
-      <Button
-        maxW="container.sm"
-        w="full"
-        colorScheme="green"
-        onClick={handleClean}
-      >
-        Limpar
-      </Button>
     </VStack>
   );
 };
