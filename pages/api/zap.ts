@@ -26,7 +26,14 @@ export default async function handler(
         .replace(/(\r\n|\n|\r)/gm, "")
         .replace(/\D/g, "");
 
-      res.status(200).json({ price, query });
+      const name = $(
+        "#app > div > section > article.main__info.oz-info-listing.container > h1 > strong"
+      )
+        .text()
+        .replace(/(\r\n|\n|\r)/gm, "")
+        .trim();
+
+      res.status(200).json({ price, name });
     } catch (e: any) {
       res.status(500).json({ error: e.message });
     }
