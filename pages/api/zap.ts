@@ -33,7 +33,49 @@ export default async function handler(
         .replace(/(\r\n|\n|\r)/gm, "")
         .trim();
 
-      res.status(200).json({ price, name });
+      const size = $(
+        "#app > div > section > article.main__info.oz-info-listing.container > div.box--display-flex.box--items-start > div.box--flex-grow > div.info__base > ul > li.feature__item.text-regular.js-areas > span:nth-child(2)"
+      )
+        .text()
+        .replace(/(\r\n|\n|\r)/gm, "")
+        .replace(/\D/g, "")
+        .trim();
+
+      const rooms = $(
+        "#app > div > section > article.main__info.oz-info-listing.container > div.box--display-flex.box--items-start > div.box--flex-grow > div.info__base > ul > li.feature__item.text-regular.js-bedrooms > span:nth-child(2)"
+      )
+        .text()
+        .replace(/(\r\n|\n|\r)/gm, "")
+        .replace(/\D/g, "")
+        .trim();
+
+      const parking = $(
+        "#app > div > section > article.main__info.oz-info-listing.container > div.box--display-flex.box--items-start > div.box--flex-grow > div.info__base > ul > li.feature__item.text-regular.js-parking-spaces > span:nth-child(2)"
+      )
+        .text()
+        .replace(/(\r\n|\n|\r)/gm, "")
+        .replace(/\D/g, "")
+        .trim();
+
+      const bath = $(
+        "#app > div > section > article.main__info.oz-info-listing.container > div.box--display-flex.box--items-start > div.box--flex-grow > div.info__base > ul > li.feature__item.text-regular.js-bathrooms > span:nth-child(2)"
+      )
+        .text()
+        .replace(/(\r\n|\n|\r)/gm, "")
+        .replace(/\D/g, "")
+        .trim();
+
+      const monthly = $(
+        "#app > div > section > article.main__info.oz-info-listing.container > div.box--display-flex.box--items-start > div.box--flex-grow > div.info__base > div > ul > li.price__item.condominium.color-dark.text-regular > span"
+      )
+        .text()
+        .replace(/(\r\n|\n|\r)/gm, "")
+        .replace(/\D/g, "")
+        .trim();
+
+      res
+        .status(200)
+        .json({ price, name, size, rooms, parking, bath, monthly });
     } catch (e: any) {
       res.status(500).json({ error: e.message });
     }
