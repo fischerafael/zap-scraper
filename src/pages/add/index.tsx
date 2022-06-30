@@ -106,7 +106,7 @@ export const PageAdd = () => {
               <Text>{result.size} m²</Text>
             </VStack>
             <VStack w="full" align="flex-start" spacing="0">
-              <Text fontSize="xs">Aluguel</Text>
+              <Text fontSize="xs">Condomínio</Text>
               <Text>R$ {result.rent}</Text>
             </VStack>
           </VStack>
