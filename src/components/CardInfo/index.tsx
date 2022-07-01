@@ -2,7 +2,7 @@ import { Text, VStack } from "@chakra-ui/react";
 
 export interface CardInfoProps {
   label: string;
-  value: string;
+  value: string | number;
 }
 
 export const CardInfo = (props: CardInfoProps) => {

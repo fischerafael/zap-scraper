@@ -1,7 +1,8 @@
 import { HStack, Image, SimpleGrid, VStack } from "@chakra-ui/react";
+import { IApartment } from "../../entities/IApartment";
 import { CardInfo } from "../CardInfo";
 
-export const ApartmentCard = () => {
+export const ApartmentCard = (props: IApartment) => {
   return (
     <HStack w="full" spacing="4" bg="white">
       <VStack w="300px" h="full">
@@ -13,14 +14,14 @@ export const ApartmentCard = () => {
       </VStack>
 
       <SimpleGrid w="full" columns={4} spacing="4" p="4" h="full">
-        <CardInfo label="Nome" value="Apartamento X" />
-        <CardInfo label="Quartos" value="2" />
-        <CardInfo label="Banheiro" value="1" />
-        <CardInfo label="Garagem" value="1" />
-        <CardInfo label="Endereço" value="Rua louca, 1900" />
-        <CardInfo label="Preço" value="R$ 280.000" />
-        <CardInfo label="Área" value="72 m²" />
-        <CardInfo label="Condomínio" value="R$ 520" />
+        <CardInfo label="Nome" value={props.name} />
+        <CardInfo label="Quartos" value={props.rooms} />
+        <CardInfo label="Banheiro" value={props.rooms} />
+        <CardInfo label="Garagem" value={props.parking} />
+        <CardInfo label="Endereço" value={props.address} />
+        <CardInfo label="Preço" value={props.price} />
+        <CardInfo label="Área" value={props.size} />
+        <CardInfo label="Condomínio" value={props.rent} />
       </SimpleGrid>
     </HStack>
   );
