@@ -32,11 +32,13 @@ export const ApartmentContextProvider = ({
   const [apartmentLink, setApartmentLink] = useState("");
   const [apartment, setApartment] = useState<IApartment>(INITIAL_RESULT_STATE);
 
+  console.log(apartments);
+
   const handleAddApartment = async () => {
     await axios
       .get(`/api/zap?url=${apartmentLink}`)
       .then((res) => {
-        setApartment({
+        const result = {
           ...apartment,
           price: res.data.price,
           name: res.data.name,
@@ -44,10 +46,13 @@ export const ApartmentContextProvider = ({
           parking: res.data.parking,
           size: res.data.size,
           bath: res.data.bath,
-          rent: res.data.monthly,
-        });
+          rent: res.data.rent,
+          address: res.data.address,
+        };
+
+        setApartment(result);
         setApartmentLink("");
-        setApartments((prevState) => [...prevState, apartment]);
+        setApartments((prevState) => [...prevState, result]);
         handleNavigate("/app");
       })
       .catch((err) => console.log(err));

@@ -6,11 +6,7 @@ export const ApartmentCard = (props: IApartment) => {
   return (
     <HStack w="full" spacing="4" bg="white">
       <VStack w="300px" h="150px">
-        <Image
-          objectFit="cover"
-          h="full"
-          src="https://www.e-architect.com/wp-content/uploads/2019/10/kite-apartment-curitiba-brazil-g241019-e4.jpg"
-        />
+        <Image objectFit="cover" h="full" src={props?.imageUrl} />
       </VStack>
 
       <SimpleGrid w="full" columns={4} spacing="4" p="4" h="full">

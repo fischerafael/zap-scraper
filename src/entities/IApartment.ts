@@ -7,4 +7,5 @@ export interface IApartment {
   size: number;
   bath: number;
   rent: number;
+  imageUrl?: string;
 }

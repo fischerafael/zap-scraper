@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { load } from "cheerio";
+import { IApartment } from "../../src/entities/IApartment";
 
 export default async function handler(
   req: NextApiRequest,
@@ -65,7 +66,7 @@ export default async function handler(
         .replace(/\D/g, "")
         .trim();
 
-      const monthly = $(
+      const rent = $(
         "#app > div > section > article.main__info.oz-info-listing.container > div.box--display-flex.box--items-start > div.box--flex-grow > div.info__base > div > ul > li.price__item.condominium.color-dark.text-regular > span"
       )
         .text()
@@ -73,9 +74,27 @@ export default async function handler(
         .replace(/\D/g, "")
         .trim();
 
-      res
-        .status(200)
-        .json({ price, name, size, rooms, parking, bath, monthly });
+      const address = $(
+        "#app > div > section > article.main__info.oz-info-listing.container > div.box--display-flex.box--items-start > div.box--flex-grow > div.box--display-flex.box--items-baseline > p > button > span.link"
+      )
+        .text()
+        .trim();
+
+      const imageUrl = $(
+        "#listing-carousel > section > ul > li:nth-child(1) > img"
+      ).toString();
+
+      res.status(200).json({
+        price,
+        name,
+        size,
+        rooms,
+        parking,
+        bath,
+        rent,
+        address,
+        imageUrl,
+      });
     } catch (e: any) {
       res.status(500).json({ error: e.message });
     }
