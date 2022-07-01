@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import { IApartment } from "../../entities/IApartment";
+import { handleNavigate } from "../../utils/handleNavigate";
 
 const INITIAL_RESULT_STATE = {
   price: 0,
@@ -47,6 +48,8 @@ export const ApartmentContextProvider = ({
           rent: res.data.monthly,
         });
         setApartmentLink("");
+        setApartments((prevState) => [...prevState, apartment]);
+        handleNavigate("/app");
       })
       .catch((err) => console.log(err));
   };
@@ -64,6 +67,8 @@ export const ApartmentContextProvider = ({
         apartmentLink,
         setApartmentLink,
         handleClean,
+        apartments,
+        setApartments,
       }}
     >
       {children}
@@ -82,4 +87,6 @@ interface IContext {
   apartmentLink: string;
   setApartmentLink: Dispatch<SetStateAction<string>>;
   handleClean: () => void;
+  apartments: IApartment[];
+  setApartments: Dispatch<SetStateAction<IApartment[]>>;
 }
