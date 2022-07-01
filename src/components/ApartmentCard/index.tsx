@@ -5,7 +5,7 @@ import { CardInfo } from "../CardInfo";
 export const ApartmentCard = (props: IApartment) => {
   return (
     <HStack w="full" spacing="4" bg="white">
-      <VStack w="300px" h="full">
+      <VStack w="300px" h="150px">
         <Image
           objectFit="cover"
           h="full"
