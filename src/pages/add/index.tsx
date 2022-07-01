@@ -1,58 +1,28 @@
 import { Button, Input, Text, VStack } from "@chakra-ui/react";
-import axios from "axios";
-import { serializeArray } from "cheerio/lib/api/forms";
 import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
+import { useApartment } from "../../contexts/useApartment";
 import { handleNavigate } from "../../utils/handleNavigate";
 
-const INITIAL_RESULT_STATE = {
-  price: 0,
-  name: "",
-  rooms: 0,
-  parking: 0,
-  size: 0,
-  bath: 0,
-  rent: 0,
-};
-
 export const PageAdd = () => {
-  const [zapLink, setZapLink] = useState("");
   const [isDisabled, setDisabled] = useState(true);
 
-  const [result, setResult] = useState(INITIAL_RESULT_STATE);
-
-  console.log(zapLink);
-
-  const handleScrape = async () => {
-    await axios
-      .get(`/api/zap?url=${zapLink}`)
-      .then((res) => {
-        setResult({
-          ...result,
-          price: res.data.price,
-          name: res.data.name,
-          rooms: res.data.rooms,
-          parking: res.data.parking,
-          size: res.data.size,
-          bath: res.data.bath,
-          rent: res.data.monthly,
-        });
-        setZapLink("");
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const handleClean = () => {
-    setResult(INITIAL_RESULT_STATE);
-  };
+  const {
+    handleAddApartment,
+    apartment,
+    setApartment,
+    handleClean,
+    apartmentLink,
+    setApartmentLink,
+  } = useApartment();
 
   useEffect(() => {
-    if (zapLink) {
+    if (apartmentLink) {
       setDisabled(false);
       return;
     }
     setDisabled(true);
-  }, [zapLink]);
+  }, [apartmentLink]);
 
   return (
     <VStack bg="gray.100" w="full" minH="100vh" color="green.900" px="8">
@@ -68,48 +38,48 @@ export const PageAdd = () => {
           <Input
             w="full"
             placeholder="Link do imóvel"
-            value={zapLink}
-            onChange={(e) => setZapLink(e.target.value)}
+            value={apartmentLink}
+            onChange={(e) => setApartmentLink(e.target.value)}
           />
           <Button
             isDisabled={isDisabled}
             w="full"
             colorScheme="green"
-            onClick={handleScrape}
+            onClick={handleAddApartment}
           >
             Salvar
           </Button>
         </VStack>
 
-        {result.price && (
+        {apartment.price && (
           <VStack w="full">
             <VStack w="full" align="flex-start" spacing="0">
               <Text fontSize="xs">Nome do Imóvel</Text>
-              <Text>{result.name}</Text>
+              <Text>{apartment.name}</Text>
             </VStack>
             <VStack w="full" align="flex-start" spacing="0">
               <Text fontSize="xs">Preço do Imóvel</Text>
-              <Text>R$ {result.price}</Text>
+              <Text>R$ {apartment.price}</Text>
             </VStack>
             <VStack w="full" align="flex-start" spacing="0">
               <Text fontSize="xs">Quartos</Text>
-              <Text>{result.rooms}</Text>
+              <Text>{apartment.rooms}</Text>
             </VStack>
             <VStack w="full" align="flex-start" spacing="0">
               <Text fontSize="xs">Garagem</Text>
-              <Text>{result.parking}</Text>
+              <Text>{apartment.parking}</Text>
             </VStack>
             <VStack w="full" align="flex-start" spacing="0">
               <Text fontSize="xs">Banheiros</Text>
-              <Text>{result.bath}</Text>
+              <Text>{apartment.bath}</Text>
             </VStack>
             <VStack w="full" align="flex-start" spacing="0">
               <Text fontSize="xs">Área</Text>
-              <Text>{result.size} m²</Text>
+              <Text>{apartment.size} m²</Text>
             </VStack>
             <VStack w="full" align="flex-start" spacing="0">
               <Text fontSize="xs">Condomínio</Text>
-              <Text>R$ {result.rent}</Text>
+              <Text>R$ {apartment.rent}</Text>
             </VStack>
           </VStack>
         )}

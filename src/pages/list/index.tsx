@@ -1,11 +1,4 @@
-import {
-  Button,
-  HStack,
-  Image,
-  SimpleGrid,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, VStack } from "@chakra-ui/react";
 import { ApartmentCard } from "../../components/ApartmentCard";
 import { Header } from "../../components/Header";
 import { handleNavigate } from "../../utils/handleNavigate";
