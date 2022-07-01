@@ -6,6 +6,8 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { ApartmentCard } from "../../components/ApartmentCard";
+import { CardInfo } from "../../components/CardInfo";
 
 export const PageList = () => {
   return (
@@ -15,42 +17,12 @@ export const PageList = () => {
         <Button colorScheme="green">Adicionar</Button>
       </HStack>
 
-      <VStack w="full" maxW="container.md">
-        <HStack h="fit-content" w="full" spacing="4">
-          <Image
-            w="100px"
-            h="100px"
-            objectFit="cover"
-            src="https://www.e-architect.com/wp-content/uploads/2019/10/kite-apartment-curitiba-brazil-g241019-e4.jpg"
-          />
-          <SimpleGrid w="full" columns={4} spacing="4">
-            <CardInfo label="Nome" value="Apartamento X" />
-            <CardInfo label="Quartos" value="2" />
-            <CardInfo label="Banheiro" value="1" />
-            <CardInfo label="Garagem" value="1" />
-            <CardInfo label="Endereço" value="Rua louca, 1900" />
-            <CardInfo label="Preço" value="R$ 280.000" />
-            <CardInfo label="Área" value="72 m²" />
-            <CardInfo label="Condomínio" value="R$ 520" />
-          </SimpleGrid>
-        </HStack>
+      <VStack w="full" maxW="container.md" h="full" spacing="8">
+        <ApartmentCard />
+        <ApartmentCard />
+        <ApartmentCard />
+        <ApartmentCard />
       </VStack>
-    </VStack>
-  );
-};
-
-export interface CardInfoProps {
-  label: string;
-  value: string;
-}
-
-export const CardInfo = (props: CardInfoProps) => {
-  return (
-    <VStack w="full" h="full" spacing="0" align="flex-start">
-      <Text wordBreak="break-all" fontSize="xs">
-        {props.label}
-      </Text>
-      <Text wordBreak="break-all">{props.value}</Text>
     </VStack>
   );
 };
