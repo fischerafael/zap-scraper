@@ -2,6 +2,8 @@ import { Button, Input, Text, VStack } from "@chakra-ui/react";
 import axios from "axios";
 import { serializeArray } from "cheerio/lib/api/forms";
 import { useEffect, useState } from "react";
+import { Header } from "../../components/Header";
+import { handleNavigate } from "../../utils/handleNavigate";
 
 const INITIAL_RESULT_STATE = {
   price: 0,
@@ -53,15 +55,15 @@ export const PageAdd = () => {
   }, [zapLink]);
 
   return (
-    <VStack
-      w="full"
-      bg="purple.900"
-      color="white"
-      minH="100vh"
-      p="8"
-      spacing="16"
-    >
-      <VStack w="full" maxW="container.sm">
+    <VStack bg="gray.100" w="full" minH="100vh" color="green.900" px="8">
+      <Header
+        button={
+          <Button colorScheme="green" onClick={() => handleNavigate("/app/")}>
+            Cancelar
+          </Button>
+        }
+      />
+      <VStack w="full" maxW="container.md">
         <VStack w="full">
           <Input
             w="full"
